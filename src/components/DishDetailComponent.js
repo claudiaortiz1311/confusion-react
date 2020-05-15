@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 class DishDetail extends Component {
   render() {
     const { dish } = this.props;
-    return <div className="row">{this.renderDish(dish)}</div>;
+    return <div className="row container">{this.renderDish(dish)}</div>;
   }
 
   renderDish = (dish) => {
@@ -40,7 +40,12 @@ class DishDetail extends Component {
             <li>{co.comment}</li>
             <br />
             <li>
-              -- {co.author}, {this.formatDate(co.date)}
+              -- {co.author},{" "}
+              {new Intl.DateTimeFormat("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "2-digit",
+              }).format(new Date(Date.parse(co.date)))}
             </li>
             <br />
           </React.Fragment>
@@ -51,13 +56,6 @@ class DishDetail extends Component {
       return <div></div>;
     }
   };
-
-  formatDate(date) {
-    const option = { year: "numeric", month: "short", day: "numeric" };
-    const dat = new Date(date);
-    const newdate = dat.toLocaleDateString("en-US", option);
-    return newdate;
-  }
 }
 
 export default DishDetail;
